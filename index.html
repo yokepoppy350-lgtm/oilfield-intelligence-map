@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182D33">
+  <title>油田作业图谱 · 石油勘探开发智能化地图</title>
+  <meta name="description" content="沿一幅连续油田剖面，探索从地质认识到生产改进的可视化案例。">
+  <link rel="stylesheet" href="assets/ui.css?v=20261103-trim1"><link rel="stylesheet" href="assets/style.css?v=20261103-trim1"><link rel="stylesheet" href="assets/workbench.css?v=20261103-trim1"><link rel="stylesheet" href="assets/atlas.css?v=20261103-trim1"><link rel="stylesheet" href="assets/atlas-engine-host.css?v=20261103-trim1">
+<link rel="stylesheet" href="assets/publication.css?v=20261104-cases61"></head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="masthead">
+    <a class="brand" href="#/map">油田作业图谱</a>
+    <nav aria-label="主导航"><a href="#/map" data-nav="map">环节地图</a><a href="#/cases" data-nav="cases">案例库</a><a href="#/method/opt" data-nav="method">方法检索</a></nav>
+    <div class="header-actions"><button class="add" id="add-case">导入案例</button></div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="footer"><a href="#/guide">使用说明</a><button id="motion-global" role="switch" aria-checked="true" aria-label="动态效果">动态：开</button></footer>
+  <dialog id="import-dialog" aria-labelledby="import-title">
+    <div class="dialog-head"><div><h2 id="import-title">导入案例</h2></div><button id="close-import" aria-label="关闭">×</button></div>
+    <p>保留 case.json 与演示目录结构；上传及解压后均不超过 6 MB。</p>
+    <div class="drop" id="drop"><strong>将 ZIP 或案例文件夹拖到这里</strong><span class="note">自动识别外层文件夹，无需预先解压</span><div class="import-choices"><label>选择 ZIP 压缩包<input id="case-zip" type="file" accept=".zip,application/zip,application/x-zip-compressed"></label><label>选择案例文件夹<input id="case-folder" type="file" webkitdirectory multiple></label></div></div>
+    <label class="note import-files">也可多选全部案例文件：<input id="case-files" type="file" multiple></label>
+    <div id="import-result" role="status" aria-live="polite">导入内容仅保存在当前浏览器。</div><button id="commit-import" class="primary" disabled>校验并导入</button>
+  </dialog>
+  <script src="assets/vendor/data.js?v=20261030-cases1"></script><script src="assets/vendor/case-demo-host.js?v=20261030-cases1"></script><script src="assets/vendor/fflate.min.js"></script><script src="assets/importer.js?v=20261102-zip1"></script><script src="assets/registry.js?v=20261030-cases1"></script><script src="assets/vendor/kit.js?v=20261030-cases1"></script><script src="assets/scene.js?v=20261030-cases1"></script><script src="assets/section-view.js?v=20261030-cases1"></script><script src="assets/atlas-scene.js?v=20261104-cases61"></script><script src="cases/perforation-optimization/demo/demo.js"></script><script src="assets/field-study.js?v=20261103-trim1"></script><script src="assets/views.js?v=20261104-cases61"></script><script src="assets/app.js?v=20261104-cases61"></script>
+</body></html>

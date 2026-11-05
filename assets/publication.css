@@ -1,0 +1,137 @@
+/* 全站研究门户主题。独立案例携带同一份文件。 */
+:root{--paper:#F4F6F8;--card:#FFFFFF;--ink:#173B52;--muted:#536777;--green:#285D7A;--red:#9B563D;--line:#D6DEE5;--soft:#EAF0F5;--sans:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;--mono:Consolas,monospace;--display:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.8}
+body h1,body .case-title,body h2{font-family:var(--display);font-weight:600;letter-spacing:0;line-height:1.5}
+body h1{font-size:32px}body h2{font-size:24px}body h3{font-size:18px;font-weight:600}
+body button,body input,body select{font-family:var(--sans)}
+body button,body .btn,body input:not([type=range]):not([type=checkbox]),body select{border-radius:3px}
+body .masthead,.map-workspace .masthead{position:relative;inset:auto;max-width:none;margin:0;height:88px;min-height:88px;padding:0 max(32px,calc((100vw - 1200px)/2));display:flex;align-items:center;gap:40px;background:#173B52;color:#FFFFFF;border:0}
+body .masthead .brand,.map-workspace .masthead .brand{font-family:var(--display);font-size:22px;font-weight:600;color:#FFFFFF;letter-spacing:0}
+body .masthead nav,.map-workspace .masthead nav{margin-left:auto;gap:32px}
+body .masthead nav a,.map-workspace .masthead nav a{font-size:14px;font-weight:400;min-height:44px;color:#CFDCE5}
+body .masthead nav a[aria-current],.map-workspace .masthead nav a[aria-current]{color:#FFFFFF;font-weight:600;text-decoration:underline;text-underline-offset:10px}
+body .masthead .header-actions,.map-workspace .masthead .header-actions{margin-left:0}
+body .masthead .add,.map-workspace .masthead .add{background:transparent;color:#FFFFFF;border:1px solid #809BAF;padding:8px 16px;min-height:40px;font-size:14px}
+body .page{max-width:1200px;padding:48px 0 72px}
+body .detail-head{margin-bottom:28px}body .detail-meta{font-size:14px;margin-top:12px;gap:24px}
+body .crumb{font-size:14px;margin-bottom:24px}
+body .tabs{gap:40px;margin-bottom:40px;border-bottom:1px solid var(--line)}
+body .tabs a{font-size:16px;padding:12px 0 16px}body .tabs a[aria-selected=true]{color:var(--ink);text-underline-offset:18px}
+body .filters{margin:32px 0 40px;gap:12px}body .filters input,body .filters select{background:#FFFFFF}
+body .library-case{gap:32px;margin-bottom:32px;padding-bottom:24px}
+body .library-row{grid-template-columns:192px minmax(0,1fr);gap:32px;align-items:start}
+body .library-row .case-title{font-size:24px;margin:0 0 8px}
+body .library-row .case-context{font-size:14px;color:#536777;margin-bottom:4px}
+body .archive-info small,body .case-package{font-size:14px}
+body .archive-info p{margin:8px 0 12px;line-height:1.8}
+body .background-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px}
+body .step-layout{grid-template-columns:208px minmax(0,1fr);gap:56px}
+body .step-list button[aria-pressed=true]{color:#173B52;text-decoration:underline;text-underline-offset:6px}
+body .footer{max-width:1264px;font-size:14px;padding:28px 32px}
+body .figure-label,body .case-switch{font-size:14px}
+body .notice{color:#536777;background:transparent}
+body.map-workspace{--paper:#F4F6F8;--card:#FFFFFF;--ink:#173B52;--muted:#536777;--line:#D6DEE5;--soft:#EAF0F5;--red:#8B5E32;--green:#285D7A;color-scheme:light;background:#F4F6F8;overflow:hidden}
+body.map-workspace .atlas-page{height:calc(100dvh - 88px);min-height:530px;background:#F4F6F8}
+body.map-workspace .section-drawing{inset:20px 24px 72px}
+body.map-workspace .atlas-page[data-focus=perforation] .section-drawing{inset:24px 24px 34px}
+body.map-workspace .stage-panel{top:32px;max-height:calc(100dvh - 150px)}
+body.map-workspace .atlas-page[data-focus=perforation] .stage-panel{height:calc(100dvh - 155px)}
+body.map-workspace .section-title>text:first-child{fill:#173B52}
+body.map-workspace .section-sub,body.map-workspace .section-footnote{fill:#536777}
+body.map-workspace .field-model .field-annotations text{fill:#F4F1DB}
+body.map-workspace .map-node .node-label{background:#F4F6F8E8}
+body.map-workspace .map-node .node-name{color:#173B52;font-weight:600}
+body.map-workspace .map-node[data-stage=perforation] .node-name{color:#825A30}
+body.map-workspace .map-node::before{background:#173B52;border-color:#FFFFFF}
+body.map-workspace .study-modes button[aria-pressed=true]{background:#EAF0F5;border-color:#285D7A;color:#173B52}
+body.map-workspace .map-menu>.menu-content{background:#FFFFFF;color:#173B52}
+body.map-workspace .map-menu .stage-rail a:hover{background:#EAF0F5}
+body.map-workspace .study-head>span{font-family:var(--display);font-size:24px}
+body.map-workspace .field-intro{bottom:24px}
+/* 独立演示与门户共用字形、色彩及阅读宽度。专业图中的结果色保持。 */
+body:has(#controls),body:has(.demo-grid){background:#FFFFFF;color:#173B52}
+body:has(#controls) main,body:has(.demo-grid) main{max-width:1200px}
+body:has(#controls) h1,body:has(.demo-grid) h2{font-family:var(--display)}
+body:has(#controls) p,body:has(.demo-grid) .note{color:#536777}
+body:has(#controls) button{background:#285D7A;border-color:#285D7A}
+body:has(#controls) #controls{padding:24px 0;margin:24px 0 32px;background:transparent}
+body:has(#controls) figure{border-radius:3px}
+@media(max-width:760px){
+ body .masthead,.map-workspace .masthead{height:108px;min-height:108px;padding:12px 20px;gap:0 16px;flex-wrap:wrap}
+ body .masthead .brand,.map-workspace .masthead .brand{font-size:20px}
+ body .masthead nav,.map-workspace .masthead nav{order:3;width:100%;margin:0;gap:28px}
+ body .masthead nav a,.map-workspace .masthead nav a{font-size:14px;min-height:36px}
+ body .masthead .header-actions,.map-workspace .masthead .header-actions{margin-left:auto}
+ body .masthead .add,.map-workspace .masthead .add{font-size:12px;padding:6px 10px;min-height:36px}
+ body h1{font-size:28px}body h2{font-size:22px}
+ body .page{padding:28px 0 48px}body .detail-meta{font-size:12px;gap:12px}
+ body .library-case{gap:8px;margin-bottom:24px;padding-bottom:0}
+ body .library-row{grid-template-columns:88px minmax(0,1fr);gap:20px}
+ body .library-row .case-title{font-size:20px}
+ body .background-grid,body .step-layout{grid-template-columns:1fr;gap:32px}
+ body .tabs{gap:28px;margin-bottom:28px}body .tabs a{font-size:16px}
+ body.map-workspace .atlas-page{height:calc(100dvh - 108px);min-height:500px}
+ body.map-workspace .atlas-page.stage{height:auto}
+ body.map-workspace .section-drawing{inset:20px 12px 100px}
+ body.map-workspace .atlas-page.stage .section-drawing{inset:20px 8px 24px}
+ body.map-workspace .atlas-page[data-focus=perforation] .scene-viewport{height:calc(100vw * 1.033 + 30px)}
+ body.map-workspace .stage-panel{top:auto;background:#F4F6F8}
+ body.map-workspace .atlas-page[data-focus=perforation] .stage-panel{height:auto}
+}
+
+.method-question{max-width:48em;color:var(--muted);font-size:18px;margin-top:12px}
+.method-nav{display:flex;flex-wrap:wrap;gap:12px 32px;margin:32px 0 44px}
+.method-nav a{padding:8px 0;color:var(--muted)}.method-nav a[aria-current]{color:var(--ink);font-weight:600;border-bottom:2px solid var(--ink)}
+.method-reading{display:grid;grid-template-columns:1.3fr 1fr;gap:80px}.method-reading h2{margin-bottom:16px}.method-reading p{max-width:44em;color:var(--muted)}.method-reading h2:not(:first-child){margin-top:32px}.method-limit{font-size:14px;margin-top:16px}
+.method-chain{margin:0;padding-left:24px}.method-chain li{padding:0 0 24px 12px}.method-applications,.method-examples{margin-top:56px}.method-applications h2,.method-examples h2{margin-bottom:24px}
+.method-scene-list{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}.method-scene-list a{display:grid;grid-template-columns:54px 1fr auto;gap:12px;padding:18px 0;align-items:baseline;border-bottom:1px solid var(--line)}.method-scene-list span,.method-scene-list small{font-size:12px;color:var(--muted)}.method-scene-list strong{font-weight:500}.method-examples .library-row{margin-bottom:28px}
+.masthead nav a,.library-row .case-title{transition:color .15s ease}.library-row:hover .case-title{color:#285D7A}
+.intro .section-drawing::after{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:#285D7A;pointer-events:none;animation:opening-scan .45s linear both}
+.intro .section-drawing .geology{animation:opening-earth .5s .45s both}.intro .section-drawing .facilities{animation:opening-earth .35s .75s both}.intro .section-drawing .well-line{animation:opening-well .6s .95s both}.intro .section-drawing .target-well{animation:opening-earth .4s 1.55s both}.intro .map-node-layer{animation:opening-earth .3s 1.7s both}
+.intro-label{position:absolute;top:16px;left:24px;font-size:14px;color:#536777;background:#F4F6F8;padding:4px 12px;z-index:5}.intro-skip{position:absolute;right:24px;top:16px;z-index:5;background:#FFFFFF;font-size:14px}
+@keyframes opening-scan{from{left:0;opacity:1}to{left:100%;opacity:0}}@keyframes opening-earth{from{opacity:0}to{opacity:1}}@keyframes opening-well{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@media(max-width:760px){.method-reading,.method-scene-list{grid-template-columns:1fr;gap:24px}.method-nav{gap:8px 24px;margin:24px 0 32px}.method-question{font-size:16px}.method-scene-list a{grid-template-columns:44px 1fr}.method-scene-list small{grid-column:2}.method-applications,.method-examples{margin-top:36px}}
+@media(prefers-reduced-motion:reduce){.intro .section-drawing::after{display:none}.intro .section-drawing *,.intro .map-node-layer{animation:none}.masthead nav a,.library-row .case-title{transition:none}}
+
+/* 研究目录与工程阅读界面。导航、正文、证据分区各有明确职责。 */
+body{background:#F3F5F7}body .page{max-width:1280px}body .masthead{padding-left:max(32px,calc((100vw - 1280px)/2));padding-right:max(32px,calc((100vw - 1280px)/2))}
+.research-page-head{display:flex;justify-content:space-between;gap:48px;align-items:baseline;padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid var(--line)}.research-page-head p{max-width:30em;color:var(--muted);margin:0;font-size:16px}
+.research-layout{display:grid;grid-template-columns:208px minmax(0,1fr);gap:56px}.research-index{align-self:start;position:sticky;top:24px}.research-index h2{font-size:18px;margin-bottom:12px}.research-index p{font-size:14px;color:var(--muted);margin:0 0 20px}.research-index nav{display:grid}.research-index nav a{display:flex;justify-content:space-between;gap:12px;padding:10px 0;font-size:14px}.research-index nav a span:last-child{color:var(--muted);font-size:12px}.research-index nav a:hover{color:#285D7A;text-decoration:underline}.index-source{display:block;font-size:14px;margin-top:24px;text-decoration:underline;text-underline-offset:4px}
+.research-results{min-width:0}.research-results .filters{margin:0 0 32px}.research-results .filters input[type=search]{min-width:100%;}.research-results .library-row{grid-template-columns:148px minmax(0,1fr);gap:24px}.research-results .library-row .case-title{font-size:22px}.research-results .library-case{grid-template-columns:minmax(0,1fr);gap:8px;padding:0 0 28px;margin:0 0 28px}.research-results .case-package{margin-left:172px;justify-self:start}.research-results .archive-info p{font-size:15px}.research-results .case-thumb{aspect-ratio:4/3}
+.comparison-picker{padding-top:32px;margin-top:48px;border-top:1px solid var(--line)}.comparison-picker h2{font-size:24px}.comparison-picker p,.section-lead{color:var(--muted);margin:12px 0 24px}.comparison-controls{display:flex;align-items:end;gap:16px;flex-wrap:wrap}.comparison-controls label{display:grid;gap:8px;flex:1;min-width:180px;font-size:14px}.comparison-controls select{width:100%}.research-comparison{margin-top:36px;table-layout:fixed;font-size:16px}.research-comparison th:first-child{width:130px}.research-comparison th,.research-comparison td{padding:24px 20px;vertical-align:top;line-height:1.9}.research-comparison thead th{background:#E7EEF3;color:#173B52;font-size:18px}.research-comparison td{background:#FFFFFF}.source-link{display:block;font-size:14px;margin-top:16px;text-decoration:underline}.compare-page .table-wrap{overflow:auto}
+body.map-workspace .map-stage-index{position:absolute;bottom:36px;left:32px;right:32px;display:grid;grid-template-columns:repeat(13,1fr);z-index:4;gap:4px}.map-stage-index a{display:grid;justify-items:center;gap:5px;padding:12px 0;color:#173B52;font-size:14px;background:#F3F5F7}.map-stage-index a span{font-size:12px;color:#687D8B}.map-stage-index a:hover,.map-stage-index a:focus-visible{background:#DCE7EE;color:#173B52}.map-stage-index a[aria-current=page]{background:#E2E9E8;font-weight:600}
+body.map-workspace .section-drawing{inset:16px 24px 136px}body.map-workspace .map-menu{bottom:4px}body.map-workspace .field-intro{display:block;bottom:4px;right:32px;font-size:12px}body.map-workspace .atlas-page.stage .map-stage-index{display:none}
+.method-reading{padding:32px 0 40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.method-chain details{margin:0}.method-chain summary{cursor:pointer;font-weight:600}.method-chain p{font-size:14px;margin:10px 0 0;color:var(--muted)}.method-chain li{padding-bottom:28px}.method-nav{position:sticky;top:0;z-index:6;background:#F3F5F7;padding:12px 0}.method-applications h2,.method-examples h2{font-size:24px}.method-scene-list a:hover strong{text-decoration:underline;text-underline-offset:4px}
+@media(min-width:1600px){body.map-workspace .section-drawing{inset:0 6vw 136px}}
+@media(max-width:1000px){.research-layout{grid-template-columns:160px minmax(0,1fr);gap:32px}.research-page-head{display:block}.research-page-head p{margin-top:16px}.research-results .library-row{grid-template-columns:112px minmax(0,1fr);gap:20px}.research-results .case-package{margin-left:132px}.research-results .library-row .case-title{font-size:20px}}
+@media(max-width:760px){.research-layout{grid-template-columns:1fr;gap:28px}.research-index{position:static}.research-index nav{grid-template-columns:repeat(4,1fr);gap:4px 16px}.research-index nav a{display:block;font-size:14px}.research-index nav a span:last-child{display:block}.research-index>p,.index-source{display:none}.research-index h2{font-size:18px}.research-page-head{margin-bottom:24px;padding-bottom:24px}.research-results .library-row{grid-template-columns:88px minmax(0,1fr);gap:16px}.research-results .case-package{margin-left:104px}.research-comparison{min-width:650px}.comparison-controls{display:grid;grid-template-columns:1fr}.comparison-controls label{min-width:0}.method-reading{padding:24px 0}.method-nav{position:static}body.map-workspace .map-stage-index{left:12px;right:12px;bottom:44px;display:flex;overflow-x:auto;justify-content:start}.map-stage-index a{flex:0 0 60px;min-height:60px}body.map-workspace .section-drawing{inset:16px 12px 150px}}
+
+/* 连续地图：固定导航，模型与信息沿同一空间过渡。 */
+body.map-workspace .atlas-page.stage .map-stage-index{display:grid}
+body.map-workspace .atlas-page .scene-viewport{transition:width 320ms ease;min-height:0}
+body.map-workspace .stage-panel{overscroll-behavior:contain;padding-bottom:110px}
+body.map-workspace .atlas-page[data-focus=perforation] .stage-panel{max-height:calc(100dvh - 190px);height:calc(100dvh - 190px)}
+body.map-workspace .atlas-page.stage .map-stage-index{background:#F3F5F7;padding-top:8px}
+.scene-viewport[data-active-stage=production] .pump,.scene-viewport[data-active-stage=workover] .pump,.scene-viewport[data-active-stage=drilling] .rig,.scene-viewport[data-active-stage=mudlogging] .mudlogging-cabin,.scene-viewport[data-active-stage=refining] .processing,.scene-viewport[data-active-stage=transport] .pipes{stroke:#173B52;stroke-width:1.5}
+@media(max-width:760px){
+ body.map-workspace{overflow-y:auto}
+ body.map-workspace .atlas-page.stage .scene-shell{display:flex;flex-direction:column}
+ body.map-workspace .atlas-page.stage .scene-viewport{height:350px;width:100%;transition:none}
+ body.map-workspace .atlas-page.stage .stage-panel{position:relative;top:auto;right:auto;max-height:none;height:auto;padding:24px 20px 40px}
+ body.map-workspace .atlas-page.stage .section-drawing{inset:12px 12px 20px}
+ body.map-workspace .atlas-page[data-focus=perforation] .scene-viewport{height:calc(100vw * 1.033 + 40px)}
+ body.map-workspace .atlas-page.stage .map-stage-index{position:relative;order:0;left:auto;right:auto;bottom:auto;display:flex;margin:0 12px;padding:8px 0}
+ body.map-workspace .atlas-page.stage{display:flex;flex-direction:column;padding-bottom:44px}
+ body.map-workspace .atlas-page.stage>.scene-shell{order:1}
+ body.map-workspace .atlas-page.stage>.map-stage-index{order:0;flex-shrink:0}
+ body.map-workspace .atlas-page.stage .map-menu{position:fixed;background:#F3F5F7;padding:0 12px;bottom:8px;left:12px}
+}
+@media(prefers-reduced-motion:reduce){body.map-workspace .atlas-page .scene-viewport{transition:none}}
+
+/* 示意图直接操作：拖动平移，节点仍独立点击。 */
+body.map-workspace .scene-viewport{cursor:grab;touch-action:none;user-select:none}
+body.map-workspace .scene-viewport.is-dragging{cursor:grabbing}
+body.map-workspace .scene-viewport .map-node{cursor:pointer;touch-action:manipulation}
+body.map-workspace .atlas-page .scene-viewport{width:100%}
+@media(min-width:761px){body.map-workspace .atlas-page.stage .scene-viewport{width:calc(100% - 340px)}body.map-workspace .atlas-page.stage .stage-panel{width:300px;right:20px}}
+@media(max-width:760px){body.map-workspace .atlas-page.stage .scene-viewport{height:410px}body.map-workspace .atlas-page[data-focus=perforation] .scene-viewport{height:calc(100vw * 1.033 + 40px)}}

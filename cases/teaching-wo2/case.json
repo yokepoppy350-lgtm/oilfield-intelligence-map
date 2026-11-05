@@ -1,0 +1,82 @@
+{
+  "id": "teaching-wo2",
+  "sceneId": "wo2",
+  "title": "落物打捞工具智能选型",
+  "version": "1.0.0",
+  "updated": "2026-11-04",
+  "status": "ready",
+  "methods": [
+    "kg"
+  ],
+  "technique": "规则图谱过滤 + 相似案例排序",
+  "tabs": {
+    "background": {
+      "label": "专业背景",
+      "lede": "在三种合成工具类型中进行可解释的约束选型。",
+      "sections": [
+        {
+          "title": "专业问题",
+          "html": "<p>井下落物（油管、抽油杆、工具、电缆）形态各异，打捞工具的选择取决于落物尺寸、形态、所在井段与井身结构。</p><p>选型靠打捞工程师经验与工具手册，现场常带多套工具下井&quot;试着捞&quot;，增加起下钻次数。</p>"
+        },
+        {
+          "title": "变量与机制",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 160\" role=\"img\" aria-label=\"落物打捞工具智能选型的变量关系\"><rect x=\"20\" y=\"30\" width=\"210\" height=\"92\" fill=\"#e7eff3\"/><text x=\"35\" y=\"63\" font-size=\"16\" fill=\"#173b52\">落物形态匹配程度</text><text x=\"35\" y=\"98\" font-size=\"14\" fill=\"#536777\">观测或决策输入</text><rect x=\"270\" y=\"30\" width=\"210\" height=\"92\" fill=\"#d7e6ed\"/><text x=\"285\" y=\"63\" font-size=\"16\" fill=\"#173b52\">尺寸与代价规则</text><text x=\"285\" y=\"98\" font-size=\"14\" fill=\"#536777\">组合特征 / 约束</text><rect x=\"520\" y=\"30\" width=\"210\" height=\"92\" fill=\"#edf0e2\"/><text x=\"535\" y=\"63\" font-size=\"16\" fill=\"#173b52\">打捞工具候选</text><text x=\"535\" y=\"98\" font-size=\"14\" fill=\"#536777\">预测后人工复核</text><path d=\"M235 76H260M485 76H510\" stroke=\"#536777\" stroke-width=\"2\"/><text x=\"20\" y=\"150\" fill=\"#536777\" font-size=\"14\">落物形态相似性决定检索方向</text></svg><p>落物形态相似性决定检索方向，尺寸上限与预算是先验硬约束；证据链显示候选被排除的原因。</p>"
+        },
+        {
+          "title": "本例如何计算",
+          "html": "<p>在三种合成工具类型中进行可解释的约束选型。</p><p>实际方法：规则图谱过滤 + 相似案例排序。</p><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"约束过滤与相似度排序\"><title>约束过滤与相似度排序</title><text x=\"20\" y=\"40\">落物形态匹配程度 0.50</text><text x=\"20\" y=\"85\">对象尺寸 50 教学单位</text><text x=\"20\" y=\"130\">预算 65 指数</text><path d=\"M225 85L410 45\" stroke=\"#216d89\"/><rect x=\"410\" y=\"20\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"45\">外捞类工具：0.738</text><text x=\"425\" y=\"69\">全部硬约束通过</text><path d=\"M225 85L410 125\" stroke=\"#216d89\"/><rect x=\"410\" y=\"100\" width=\"330\" height=\"65\" fill=\"#d3e5eb\"/><text x=\"425\" y=\"125\">内捞类工具：0.775</text><text x=\"425\" y=\"149\">全部硬约束通过</text><path d=\"M225 85L410 205\" stroke=\"#adb8c0\"/><rect x=\"410\" y=\"180\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"205\">铣磨类工具：0.513</text><text x=\"425\" y=\"229\">代价超预算</text></svg><p>推荐“内捞类工具”：特征相似度 0.900；尺寸上限 85，代价 60。评分=0.75×相似度+0.25×代价节省比例。落物形态相似性决定检索方向，尺寸上限与预算是先验硬约束；证据链显示候选被排除的原因。</p>"
+        },
+        {
+          "title": "数据条件与边界",
+          "html": "<p>下表为老师附件建议的真实项目数据条件，本站未取得这些现场数据；本例使用固定种子教学合成数据。</p><table><thead><tr><th>数据项</th><th>形态</th><th>准备条件</th></tr></thead><tbody><tr><td>落物描述与图像</td><td>尺寸、形态、材质、深度</td><td>按落物类型标注 300—1000 例</td></tr><tr><td>打捞记录</td><td>工具组合、成功率</td><td>作为标签</td></tr><tr><td>井身结构</td><td>套管尺寸、井斜</td><td>约束条件</td></tr></tbody></table><p>教学尺寸不代表工具规格，未考虑鱼顶状态和实际抗拉极限。</p>"
+        }
+      ]
+    },
+    "workflow": {
+      "label": "案例流程",
+      "title": "落物打捞工具智能选型的计算流程",
+      "lead": [
+        "在三种合成工具类型中进行可解释的约束选型。"
+      ],
+      "steps": [
+        {
+          "name": "定义输入与参考",
+          "do": "在三种合成工具类型中进行可解释的约束选型。",
+          "effect": "本例输入：落物形态匹配程度；输出：打捞工具候选",
+          "trap": "合成参考只定义此教学任务，不作为现场真值。",
+          "diagram": "<table><caption>默认条件下的评价对象预览（可在演示导出完整表）</caption><thead><tr><th>name</th><th>context</th><th>maxSize</th><th>cost</th></tr></thead><tbody><tr><td>外捞类工具</td><td>0.250</td><td>60</td><td>30</td></tr><tr><td>内捞类工具</td><td>0.600</td><td>85</td><td>60</td></tr><tr><td>铣磨类工具</td><td>0.850</td><td>100</td><td>90</td></tr></tbody></table>"
+        },
+        {
+          "name": "准备数据与划分",
+          "do": "每例三条公开可见的合成候选记录，无隐藏训练集和虚构准确率。",
+          "effect": "固定种子 948；同一条件可重复。",
+          "trap": "先确定评价对象，测试参考不参与模型学习或阈值拟合。",
+          "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 160\" role=\"img\" aria-label=\"落物打捞工具智能选型的变量关系\"><rect x=\"20\" y=\"30\" width=\"210\" height=\"92\" fill=\"#e7eff3\"/><text x=\"35\" y=\"63\" font-size=\"16\" fill=\"#173b52\">落物形态匹配程度</text><text x=\"35\" y=\"98\" font-size=\"14\" fill=\"#536777\">观测或决策输入</text><rect x=\"270\" y=\"30\" width=\"210\" height=\"92\" fill=\"#d7e6ed\"/><text x=\"285\" y=\"63\" font-size=\"16\" fill=\"#173b52\">尺寸与代价规则</text><text x=\"285\" y=\"98\" font-size=\"14\" fill=\"#536777\">组合特征 / 约束</text><rect x=\"520\" y=\"30\" width=\"210\" height=\"92\" fill=\"#edf0e2\"/><text x=\"535\" y=\"63\" font-size=\"16\" fill=\"#173b52\">打捞工具候选</text><text x=\"535\" y=\"98\" font-size=\"14\" fill=\"#536777\">预测后人工复核</text><path d=\"M235 76H260M485 76H510\" stroke=\"#536777\" stroke-width=\"2\"/><text x=\"20\" y=\"150\" fill=\"#536777\" font-size=\"14\">落物形态相似性决定检索方向</text></svg>"
+        },
+        {
+          "name": "计算与解释",
+          "do": "规则图谱过滤 + 相似案例排序；先检查尺寸≤上限且代价≤预算，再评分0.75×(1−|当前特征−案例特征|)+0.25×(1−代价/100)。",
+          "effect": "落物形态相似性决定检索方向，尺寸上限与预算是先验硬约束；证据链显示候选被排除的原因。",
+          "trap": "教学尺寸不代表工具规格，未考虑鱼顶状态和实际抗拉极限。",
+          "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"约束过滤与相似度排序\"><title>约束过滤与相似度排序</title><text x=\"20\" y=\"40\">落物形态匹配程度 0.50</text><text x=\"20\" y=\"85\">对象尺寸 50 教学单位</text><text x=\"20\" y=\"130\">预算 65 指数</text><path d=\"M225 85L410 45\" stroke=\"#216d89\"/><rect x=\"410\" y=\"20\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"45\">外捞类工具：0.738</text><text x=\"425\" y=\"69\">全部硬约束通过</text><path d=\"M225 85L410 125\" stroke=\"#216d89\"/><rect x=\"410\" y=\"100\" width=\"330\" height=\"65\" fill=\"#d3e5eb\"/><text x=\"425\" y=\"125\">内捞类工具：0.775</text><text x=\"425\" y=\"149\">全部硬约束通过</text><path d=\"M225 85L410 205\" stroke=\"#adb8c0\"/><rect x=\"410\" y=\"180\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"205\">铣磨类工具：0.513</text><text x=\"425\" y=\"229\">代价超预算</text></svg>"
+        },
+        {
+          "name": "比较基线与复核",
+          "do": "在相同测试对象或候选集上计算模型和基线；调整控件后导出逐条结果。",
+          "effect": "指标、主图、导出表均由同一次计算生成。",
+          "trap": "只有在独立现场数据验证后才能讨论实际适用性。",
+          "diagram": "<svg viewBox=\"0 0 760 180\" role=\"img\" aria-label=\"默认计算指标对照\"><text x=\"0\" y=\"30\" fill=\"#173b52\">可行方案</text><rect x=\"255\" y=\"12\" width=\"390.0\" height=\"26\" fill=\"#216d89\"/><text x=\"655\" y=\"30\" fill=\"#536777\">2.00  / 3</text><text x=\"0\" y=\"82\" fill=\"#173b52\">经验方案违规</text><rect x=\"255\" y=\"64\" width=\"0.0\" height=\"26\" fill=\"#bf703b\"/><text x=\"655\" y=\"82\" fill=\"#536777\">0.00 项</text></svg>"
+        }
+      ],
+      "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 160\" role=\"img\" aria-label=\"落物打捞工具智能选型的变量关系\"><rect x=\"20\" y=\"30\" width=\"210\" height=\"92\" fill=\"#e7eff3\"/><text x=\"35\" y=\"63\" font-size=\"16\" fill=\"#173b52\">落物形态匹配程度</text><text x=\"35\" y=\"98\" font-size=\"14\" fill=\"#536777\">观测或决策输入</text><rect x=\"270\" y=\"30\" width=\"210\" height=\"92\" fill=\"#d7e6ed\"/><text x=\"285\" y=\"63\" font-size=\"16\" fill=\"#173b52\">尺寸与代价规则</text><text x=\"285\" y=\"98\" font-size=\"14\" fill=\"#536777\">组合特征 / 约束</text><rect x=\"520\" y=\"30\" width=\"210\" height=\"92\" fill=\"#edf0e2\"/><text x=\"535\" y=\"63\" font-size=\"16\" fill=\"#173b52\">打捞工具候选</text><text x=\"535\" y=\"98\" font-size=\"14\" fill=\"#536777\">预测后人工复核</text><path d=\"M235 76H260M485 76H510\" stroke=\"#536777\" stroke-width=\"2\"/><text x=\"20\" y=\"150\" fill=\"#536777\" font-size=\"14\">落物形态相似性决定检索方向</text></svg>"
+    },
+    "demo": {
+      "label": "案例演示",
+      "mode": "auto",
+      "html": "demo/index.html",
+      "height": 900,
+      "intro": "在三种合成工具类型中进行可解释的约束选型。"
+    }
+  },
+  "thumbnail": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"约束过滤与相似度排序\"><title>约束过滤与相似度排序</title><text x=\"20\" y=\"40\">落物形态匹配程度 0.50</text><text x=\"20\" y=\"85\">对象尺寸 50 教学单位</text><text x=\"20\" y=\"130\">预算 65 指数</text><path d=\"M225 85L410 45\" stroke=\"#216d89\"/><rect x=\"410\" y=\"20\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"45\">外捞类工具：0.738</text><text x=\"425\" y=\"69\">全部硬约束通过</text><path d=\"M225 85L410 125\" stroke=\"#216d89\"/><rect x=\"410\" y=\"100\" width=\"330\" height=\"65\" fill=\"#d3e5eb\"/><text x=\"425\" y=\"125\">内捞类工具：0.775</text><text x=\"425\" y=\"149\">全部硬约束通过</text><path d=\"M225 85L410 205\" stroke=\"#adb8c0\"/><rect x=\"410\" y=\"180\" width=\"330\" height=\"65\" fill=\"#f0f3f5\"/><text x=\"425\" y=\"205\">铣磨类工具：0.513</text><text x=\"425\" y=\"229\">代价超预算</text></svg>"
+}

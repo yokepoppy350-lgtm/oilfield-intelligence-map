@@ -1,0 +1,94 @@
+/* 地图页：井场模型承担主视觉，导航与作业资料围绕模型展开。 */
+.map-workspace {
+  --paper:#171D1D; --card:#202928; --soft:#293431; --ink:#E0E3D9;
+  --muted:#A3ADA4; --line:#3C4943; --red:#D5BA83; --green:#AABEA2;
+  --sand:#A58B58; --steel:#CCD2BE;
+  --sans:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  --mono:"Cascadia Mono",Consolas,monospace;
+  color:var(--ink); background:var(--paper); color-scheme:dark; overflow:hidden;
+}
+.map-workspace .masthead {position:absolute;inset:0 0 auto;z-index:10;min-height:84px;height:84px;max-width:none;padding:0 40px;border:0;background:var(--paper);display:flex;align-items:center;color:var(--ink)}
+.map-workspace .brand {font-size:20px;font-weight:600;letter-spacing:0;color:var(--ink)}
+.map-workspace .brand svg,.map-workspace .brand small,.map-workspace #motion-global {display:none}
+.map-workspace .masthead nav {display:flex;gap:30px;margin-left:auto;align-items:center}
+.map-workspace .masthead nav a {font-size:12px;min-height:44px;display:inline-flex;align-items:center;color:var(--muted)}
+.map-workspace .masthead nav a[aria-current] {color:var(--ink);text-decoration:underline;text-underline-offset:7px}
+.map-workspace .header-actions {margin-left:32px}
+.map-workspace .masthead .add {font:12px var(--sans);min-height:40px;padding:8px 14px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:3px}
+.map-workspace .masthead .add:hover {background:var(--soft)}
+.map-workspace :is(a,button,summary,select):focus-visible {outline:2px solid var(--red);outline-offset:4px}
+.atlas-page {position:relative;width:100%;height:100dvh;min-height:620px;margin:0;padding:0;overflow:hidden;background:var(--paper)}
+.atlas-page .scene-shell {position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
+.atlas-page .scene-viewport {position:relative;width:100%;height:100%;background:transparent;touch-action:pan-y;cursor:default}
+.atlas-page .scene-art {display:none}
+.atlas-page .map-node-layer {position:absolute;inset:0;pointer-events:none;z-index:2}
+.atlas-page .map-node {position:absolute;width:44px;height:44px;display:grid;place-items:center;pointer-events:auto;transform:translate(-50%,-50%);border:0;border-radius:50%;color:var(--ink);background:transparent;text-decoration:none}
+.atlas-page .map-node[hidden] {display:none}
+.atlas-page .map-node::before {content:"";width:5px;height:5px;border:1px solid #D4D8BE;border-radius:50%;background:#35463A}
+.atlas-page .map-node .node-label {display:none;position:absolute;left:32px;top:10px;white-space:nowrap;gap:6px;align-items:baseline;pointer-events:none;padding:2px 5px;background:#171D1DEA;border-radius:2px}
+.atlas-page .node-number {display:none}
+.atlas-page .map-node .node-name {position:static;transform:none;display:block;font:12px var(--sans);color:var(--ink);background:transparent;padding:0}
+.atlas-page .map-node:is(:hover,:focus-visible,.is-hovered,.selected) {z-index:5}
+.atlas-page .map-node:is(:hover,:focus-visible,.is-hovered,.selected) .node-label {display:flex}
+.atlas-page .map-node:is(:hover,:focus-visible,.is-hovered,.selected)::before {width:7px;height:7px;background:var(--red);border-color:#F0D8AB}
+.atlas-page:not(.stage) .map-node:is([data-stage=drilling],[data-stage=production],[data-stage=perforation],[data-stage=refining]) .node-label {display:flex}
+.atlas-page .map-node[data-stage=perforation] .node-name {color:#E2C48C}
+.atlas-page .map-node[data-stage=perforation]::before {background:#D5BA83;border-color:#F0D8AB}
+.atlas-page .map-node[data-stage=refining] .node-label {left:4px;top:-24px}
+.atlas-page .map-node[data-stage=drilling] .node-label {left:32px;top:-2px}
+.atlas-page .stage-panel {position:absolute;right:36px;top:110px;width:350px;max-height:calc(100dvh - 145px);overflow:auto;padding:22px;background:transparent;border:0;border-radius:0;color:var(--ink);z-index:8;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.atlas-page .stage-panel[hidden] {display:none}
+.atlas-page .panel-heading {display:flex;align-items:baseline;gap:12px}
+.atlas-page .panel-number {font-size:12px;color:var(--muted)}
+.atlas-page .stage-panel h2 {font-size:28px;color:var(--ink);font-weight:500;margin:0}
+.atlas-page .stage-panel>p {font-size:16px;line-height:1.8;color:var(--muted);margin:16px 0}
+.atlas-page .archive-list {margin-top:24px}
+.atlas-page .archive-card.archive-row {display:block;box-shadow:none;transform:none;border-radius:0;padding:12px 0;margin:0;border:0;background:transparent}
+.atlas-page .archive-row .case-thumb,.atlas-page .archive-info>.eyebrow,.atlas-page .archive-info>p,.atlas-page .archive-info>small {display:none}
+.atlas-page .archive-row .case-title {font-size:16px;font-weight:500;color:var(--ink)}
+.atlas-page .archive-row.pending {display:flex;justify-content:space-between;gap:10px;padding:12px 0;font-size:12px;color:var(--muted)}
+.atlas-page .archive-row.pending small {font-size:12px}
+.atlas-page .back-map {display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:18px;color:var(--ink);font-size:12px}
+.selected-parameters {display:flex;gap:18px;margin:18px 0}.selected-parameters dd {margin:4px 0}.selected-parameters dt,.selected-parameters small {font-size:12px;color:var(--muted)}
+.map-menu {position:fixed;bottom:22px;left:40px;z-index:12}
+.map-menu>summary {display:list-item;min-height:44px;padding:10px 0;background:transparent;border:0;border-radius:0;font-size:12px;color:var(--ink);cursor:pointer;list-style:disclosure-closed inside}
+
+.map-menu[open]>summary {list-style-type:disclosure-open}
+.map-menu>.menu-content {position:absolute;left:0;bottom:54px;box-sizing:border-box;width:340px;max-width:calc(100vw - 40px);max-height:calc(100dvh - 155px);overflow:auto;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:3px;scrollbar-width:thin}
+.map-workspace .map-menu .stage-rail {display:grid;grid-template-columns:1fr 1fr;gap:0 16px;max-width:none;margin:14px 0;padding:0;border:0;background:transparent}
+.map-workspace .map-menu .stage-rail a {display:flex;align-items:center;gap:10px;min-height:38px;font-size:12px;color:var(--muted)}
+.map-workspace .map-menu .stage-rail a span {font-size:12px;color:var(--muted)}
+.map-workspace .map-menu .stage-rail a:is(:hover,.active) {color:var(--red)}
+.map-menu :is(.atlas-tools,.atlas-calculation,.atlas-context)>summary {padding:12px 0;cursor:pointer;font-size:12px}
+.map-menu .map-tools {display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.map-menu .map-tools button {font:12px var(--sans);min-height:36px;padding:6px 10px;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:2px}
+.map-menu .section-layers {display:flex;flex-wrap:wrap;gap:8px}
+.map-menu .route-path {display:grid;gap:10px;font-size:12px;margin:12px 0}
+.map-menu .counts {display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.map-menu .counts b {margin-right:5px;color:var(--ink)}
+.map-menu .preview-note {font-size:12px;color:var(--muted)}
+.field-intro {position:absolute;right:40px;bottom:29px;z-index:4;color:var(--muted);text-align:right;font-size:12px;line-height:1.8}
+.field-intro[hidden] {display:none}
+.field-intro p {margin:0;color:var(--ink);font-size:12px}.field-intro small {font-size:12px}
+.field-intro a {display:block;color:var(--red);font-size:12px;text-decoration:underline;text-underline-offset:4px}
+#load-status {position:absolute;top:86px;left:40px;right:40px;z-index:6}
+@media(max-width:1100px) and (min-width:761px) {.map-workspace .masthead {padding:0 28px}.map-workspace .masthead nav {gap:22px}.atlas-page .stage-panel {right:22px;width:330px}}
+@media(max-width:760px) {
+  .map-workspace {overflow-y:auto}
+  .map-workspace .masthead {height:104px;min-height:104px;padding:10px 20px;flex-wrap:wrap;gap:0 12px}
+  .map-workspace .brand {font-size:16px}.map-workspace .header-actions {margin-left:auto}
+  .map-workspace .masthead .add {font-size:12px;min-height:36px;padding:6px 10px}
+  .map-workspace .masthead nav {order:3;width:100%;margin:0;gap:24px}
+  .map-workspace .masthead nav a {font-size:12px;min-height:36px}
+  .atlas-page {min-height:620px}
+  .atlas-page.stage {height:auto;min-height:100dvh;overflow:visible}
+  .atlas-page.stage .scene-shell {position:relative;height:auto;overflow:visible}
+  .atlas-page.stage .scene-viewport {height:460px;min-height:0}
+  .atlas-page .stage-panel {position:relative;top:auto;right:auto;width:100%;max-height:none;box-sizing:border-box;padding:24px 20px 92px;border:0;border-radius:0;overflow:visible}
+  .map-menu {left:20px;bottom:18px}.map-menu>summary {gap:20px;font-size:12px;padding:0 12px}
+  .field-intro {right:20px;bottom:82px;max-width:260px}.field-intro p {font-size:12px}.field-intro small {font-size:12px}
+  .atlas-page .map-node .node-name {font-size:12px}
+  .atlas-page .map-node[data-stage=production] .node-label {left:0;top:-24px}
+  .atlas-page .map-node[data-stage=refining] .node-label {left:auto;right:2px}
+  #load-status {top:108px;left:20px;right:20px}
+}

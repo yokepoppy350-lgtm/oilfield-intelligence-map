@@ -1,0 +1,74 @@
+{
+  "id": "perforation-effect-evaluation",
+  "sceneId": "p4",
+  "title": "射孔效果智能评估",
+  "version": "1.0.0",
+  "updated": "2026-10-30",
+  "status": "ready",
+  "methods": [
+    "opt"
+  ],
+  "tabs": {
+    "background": {
+      "label": "专业背景",
+      "lede": "近邻模型给出增效类别得分，改变阈值观察误报和漏报之间的折中。",
+      "sections": [
+        {
+          "title": "这个问题为什么需要计算",
+          "html": "<p>如何把增效迹象与含水变化一起纳入效果评估？</p><svg viewBox=\"0 0 680 360\" role=\"img\" aria-label=\"计算结果\"><path d=\"M44 35V310H650\" fill=\"none\" stroke=\"#71806e\"></path><text x=\"44\" y=\"22\">增效类别得分 / 0—1</text><text x=\"490\" y=\"347\">48条留出井段记录 →</text><path d=\"M44 180H644\" stroke=\"#c65d3b\" stroke-dasharray=\"4 4\"></path><circle cx=\"50\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"62.340425531914896\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"74.68085106382979\" cy=\"124.28571428571428\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"87.02127659574468\" cy=\"161.42857142857144\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"99.36170212765958\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"111.70212765957447\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"124.04255319148936\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"136.38297872340425\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"148.72340425531917\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"161.06382978723406\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"173.40425531914894\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"185.74468085106383\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"198.08510638297872\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"210.4255319148936\" cy=\"198.57142857142858\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"222.7659574468085\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"235.10638297872342\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"247.4468085106383\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"259.7872340425532\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"272.1276595744681\" cy=\"161.42857142857144\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"284.468085106383\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"296.8085106382979\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"309.1489361702128\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"321.48936170212767\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"333.82978723404256\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"346.17021276595744\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"358.51063829787233\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"370.8510638297872\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"383.19148936170217\" cy=\"198.57142857142858\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"395.531914893617\" cy=\"272.8571428571429\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"407.8723404255319\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"420.21276595744683\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"432.55319148936167\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"444.8936170212766\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"457.2340425531915\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"469.5744680851064\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"481.9148936170213\" cy=\"272.8571428571429\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"494.25531914893617\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"506.59574468085106\" cy=\"235.71428571428572\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"518.936170212766\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"531.2765957446809\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"543.6170212765958\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"555.9574468085107\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"568.2978723404256\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"580.6382978723404\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"592.9787234042553\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"605.3191489361702\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"617.6595744680851\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"630\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><text x=\"60\" y=\"339\">浅绿：参考有效；橙色：参考无效；虚线：决策阈值。</text></svg><p>图为默认输入下的教学计算，改变条件请进入案例演示。单位及数据性质见图内说明。</p>"
+        },
+        {
+          "title": "智能方法介入的位置",
+          "html": "<p>近邻模型给出增效类别得分，改变阈值观察误报和漏报之间的折中。</p><p>输入输出：增效与含水特征 → 有效类别。评价：精确率、召回率、F1。</p>"
+        },
+        {
+          "title": "数据与适用范围",
+          "html": "<p>全部为固定种子的教学合成数据。类别标签由教学规则生成，不构成射孔作业的因果效果证明。</p>"
+        }
+      ]
+    },
+    "workflow": {
+      "label": "案例流程",
+      "title": "从专业问题到可复核结果",
+      "lead": [
+        "近邻模型给出增效类别得分，改变阈值观察误报和漏报之间的折中。"
+      ],
+      "steps": [
+        {
+          "name": "明确任务与样本",
+          "do": "如何把增效迹象与含水变化一起纳入效果评估？",
+          "effect": "增效与含水特征 → 有效类别",
+          "trap": "先确认目标、标签和单位，不能把相关关系直接解释为因果。"
+        },
+        {
+          "name": "划分训练与留出样本",
+          "do": "固定种子生成数据，先划分再建模。除时序与图像任务外，编号模5为0的48条留出。",
+          "effect": "训练样本用于学习；留出样本只用于计算指标。",
+          "trap": "时序使用前60天训练、后30天留出；裂缝图像使用独立训练样本与独立测试图。"
+        },
+        {
+          "name": "拟合与预测",
+          "do": "训练数据中学习近邻评分与阈值，把模型应用于留出样本。",
+          "effect": "每个留出对象对应一个预测值或类别。",
+          "trap": "类别标签由教学规则生成，不构成射孔作业的因果效果证明。"
+        },
+        {
+          "name": "比较基线与复核结果",
+          "do": "在同一批测试对象上计算精确率、召回率、F1，同时显示简单基线。调整控件后查看当前输入的结果。",
+          "effect": "图形、指标与可导出的结果一致。",
+          "trap": "教学数据表现不能作为实际油田效果或安全施工依据。"
+        }
+      ],
+      "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 190\" role=\"img\" aria-label=\"增效与含水特征 → 有效类别\"><rect x=\"5\" y=\"25\" width=\"220\" height=\"115\" fill=\"#233d30\"/><rect x=\"270\" y=\"25\" width=\"220\" height=\"115\" fill=\"#384438\"/><rect x=\"535\" y=\"25\" width=\"220\" height=\"115\" fill=\"#673c2d\"/><g fill=\"#f0eee2\" font-size=\"18\" font-family=\"sans-serif\"><text x=\"20\" y=\"58\">专业输入</text><text x=\"20\" y=\"92\">增效与含水特征</text><text x=\"285\" y=\"58\">从训练样本学习</text><text x=\"285\" y=\"92\">近邻评分与阈值</text><text x=\"550\" y=\"58\">预测与复核</text><text x=\"550\" y=\"92\">有效类别</text></g><path d=\"M230 80H262M255 73L262 80L255 87M495 80H527M520 73L527 80L520 87\" fill=\"none\" stroke=\"#857765\" stroke-width=\"3\"/><text x=\"10\" y=\"177\" font-size=\"15\" fill=\"#65715e\">数据 → 模型 → 结果；测试样本全程独立于模型拟合。</text></svg>"
+    },
+    "demo": {
+      "label": "案例演示",
+      "mode": "auto",
+      "html": "demo/index.html",
+      "height": 1600,
+      "intro": "调整输入后观察主图、基线和当前指标。"
+    }
+  },
+  "thumbnail": "<svg viewBox=\"0 0 680 360\" role=\"img\" aria-label=\"计算结果\"><path d=\"M44 35V310H650\" fill=\"none\" stroke=\"#71806e\"></path><text x=\"44\" y=\"22\">增效类别得分 / 0—1</text><text x=\"490\" y=\"347\">48条留出井段记录 →</text><path d=\"M44 180H644\" stroke=\"#c65d3b\" stroke-dasharray=\"4 4\"></path><circle cx=\"50\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"62.340425531914896\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"74.68085106382979\" cy=\"124.28571428571428\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"87.02127659574468\" cy=\"161.42857142857144\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"99.36170212765958\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"111.70212765957447\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"124.04255319148936\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"136.38297872340425\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"148.72340425531917\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"161.06382978723406\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"173.40425531914894\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"185.74468085106383\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"198.08510638297872\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"210.4255319148936\" cy=\"198.57142857142858\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"222.7659574468085\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"235.10638297872342\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"247.4468085106383\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"259.7872340425532\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"272.1276595744681\" cy=\"161.42857142857144\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"284.468085106383\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"296.8085106382979\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"309.1489361702128\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"321.48936170212767\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"333.82978723404256\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"346.17021276595744\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"358.51063829787233\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"370.8510638297872\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"383.19148936170217\" cy=\"198.57142857142858\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"395.531914893617\" cy=\"272.8571428571429\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"407.8723404255319\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"420.21276595744683\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"432.55319148936167\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"444.8936170212766\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"457.2340425531915\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"469.5744680851064\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"481.9148936170213\" cy=\"272.8571428571429\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"494.25531914893617\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"506.59574468085106\" cy=\"235.71428571428572\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"518.936170212766\" cy=\"87.14285714285717\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"531.2765957446809\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"543.6170212765958\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"555.9574468085107\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"568.2978723404256\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"580.6382978723404\" cy=\"310\" r=\"4\" fill=\"#c65d3b\"></circle><circle cx=\"592.9787234042553\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"605.3191489361702\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"617.6595744680851\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><circle cx=\"630\" cy=\"50\" r=\"4\" fill=\"#a8c4ad\"></circle><text x=\"60\" y=\"339\">浅绿：参考有效；橙色：参考无效；虚线：决策阈值。</text></svg>",
+  "technique": "近邻评分与阈值"
+}

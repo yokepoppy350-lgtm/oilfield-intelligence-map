@@ -1,0 +1,82 @@
+{
+  "id": "teaching-m5",
+  "sceneId": "m5",
+  "title": "录井报告自动生成",
+  "version": "1.0.0",
+  "updated": "2026-11-04",
+  "status": "ready",
+  "methods": [
+    "nlp"
+  ],
+  "technique": "多项式朴素贝叶斯短句分类 + 规则字段抽取",
+  "tabs": {
+    "background": {
+      "label": "专业背景",
+      "lede": "对可编辑录井记录作朴素贝叶斯主题分类和字段抽取，生成可复核摘要。",
+      "sections": [
+        {
+          "title": "专业问题",
+          "html": "<p>单井完钻后需提交综合录井报告，内容包括地层分层、油气水显示、异常工况记录与结论建议，通常由录井工程师手工汇编。</p><p>一份报告需 4—8 小时，需在多套数据表之间反复对照；不同工程师的行文与结论口径不一致，审核返工多。</p>"
+        },
+        {
+          "title": "变量与机制",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 160\" role=\"img\" aria-label=\"录井报告自动生成的变量关系\"><rect x=\"20\" y=\"30\" width=\"210\" height=\"92\" fill=\"#e7eff3\"/><text x=\"35\" y=\"63\" font-size=\"16\" fill=\"#173b52\">录井短句</text><text x=\"35\" y=\"98\" font-size=\"14\" fill=\"#536777\">观测或决策输入</text><rect x=\"270\" y=\"30\" width=\"210\" height=\"92\" fill=\"#d7e6ed\"/><text x=\"285\" y=\"63\" font-size=\"16\" fill=\"#173b52\">字段数值</text><text x=\"285\" y=\"98\" font-size=\"14\" fill=\"#536777\">组合特征 / 约束</text><rect x=\"520\" y=\"30\" width=\"210\" height=\"92\" fill=\"#edf0e2\"/><text x=\"535\" y=\"63\" font-size=\"16\" fill=\"#173b52\">录井摘要草稿</text><text x=\"535\" y=\"98\" font-size=\"14\" fill=\"#536777\">预测后人工复核</text><path d=\"M235 76H260M485 76H510\" stroke=\"#536777\" stroke-width=\"2\"/><text x=\"20\" y=\"150\" fill=\"#536777\" font-size=\"14\">词频分类可整理工况主题</text></svg><p>词频分类可整理工况主题，正则抽取把井深、压力等数值放回字段；两步都需要保存原文与缺失提示。</p>"
+        },
+        {
+          "title": "本例如何计算",
+          "html": "<p>对可编辑录井记录作朴素贝叶斯主题分类和字段抽取，生成可复核摘要。</p><p>实际方法：多项式朴素贝叶斯短句分类 + 规则字段抽取。</p><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"独立测试混淆矩阵\"><title>独立测试混淆矩阵</title><rect x=\"180\" y=\"60\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"240\" y=\"96\">2</text><rect x=\"325\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"96\">0</text><rect x=\"470\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"96\">0</text><text x=\"5\" y=\"96\">正常钻进</text><rect x=\"180\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"161\">0</text><rect x=\"325\" y=\"125\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"385\" y=\"161\">2</text><rect x=\"470\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"161\">0</text><text x=\"5\" y=\"161\">气测异常</text><rect x=\"180\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"226\">0</text><rect x=\"325\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"226\">0</text><rect x=\"470\" y=\"190\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"530\" y=\"226\">2</text><text x=\"5\" y=\"226\">设备维护</text><text x=\"180\" y=\"40\">正常钻进</text><text x=\"325\" y=\"40\">气测异常</text><text x=\"470\" y=\"40\">设备维护</text></svg><p>报告草稿：气测异常。井深2450m；压力12MPa；温度85℃。仍需人工核对未覆盖字段。</p>"
+        },
+        {
+          "title": "数据条件与边界",
+          "html": "<p>下表为老师附件建议的真实项目数据条件，本站未取得这些现场数据；本例使用固定种子教学合成数据。</p><table><thead><tr><th>数据项</th><th>形态</th><th>准备条件</th></tr></thead><tbody><tr><td>结构化录井数据</td><td>分层、显示、工况记录</td><td>无需标注</td></tr><tr><td>历史报告文本</td><td>同区块 100—300 份</td><td>标注要素与段落对应关系</td></tr><tr><td>报告模板与规范</td><td>企业标准</td><td>作为生成约束</td></tr></tbody></table><p>生成内容仅为模板化摘要，不补写缺失事实；训练短句为人工合成。</p>"
+        }
+      ]
+    },
+    "workflow": {
+      "label": "案例流程",
+      "title": "录井报告自动生成的计算流程",
+      "lead": [
+        "对可编辑录井记录作朴素贝叶斯主题分类和字段抽取，生成可复核摘要。"
+      ],
+      "steps": [
+        {
+          "name": "定义输入与参考",
+          "do": "对可编辑录井记录作朴素贝叶斯主题分类和字段抽取，生成可复核摘要。",
+          "effect": "本例输入：录井短句、字段数值；输出：录井摘要草稿",
+          "trap": "合成参考只定义此教学任务，不作为现场真值。",
+          "diagram": "<table><caption>默认条件下的评价对象预览（可在演示导出完整表）</caption><thead><tr><th>field</th><th>value</th><th>unit</th></tr></thead><tbody><tr><td>井深</td><td>2450</td><td>m</td></tr><tr><td>压力</td><td>12</td><td>MPa</td></tr><tr><td>温度</td><td>85</td><td>℃</td></tr></tbody></table>"
+        },
+        {
+          "name": "准备数据与划分",
+          "do": "18条人工合成训练短句，6条独立测试短句；逐汉字/英文词/数字分词，拉普拉斯平滑。",
+          "effect": "固定种子 540；同一条件可重复。",
+          "trap": "先确定评价对象，测试参考不参与模型学习或阈值拟合。",
+          "diagram": "<svg viewBox=\"0 0 760 120\" role=\"img\" aria-label=\"训练与评价分开\"><text x=\"10\" y=\"25\" fill=\"#173b52\">训练 18；独立评价 6（默认条件）</text><rect x=\"10\" y=\"45\" width=\"540.0\" height=\"35\" fill=\"#216d89\"/><rect x=\"550.0\" y=\"45\" width=\"180.0\" height=\"35\" fill=\"#bf703b\"/><text x=\"10\" y=\"110\" fill=\"#536777\">蓝色用于学习；橙色只用于评价，不参与拟合。</text></svg>"
+        },
+        {
+          "name": "计算与解释",
+          "do": "多项式朴素贝叶斯短句分类 + 规则字段抽取；类别得分=log先验+Σ词频×log条件概率；数值字段仅从原文正则抽取，不生成未记录事实。",
+          "effect": "词频分类可整理工况主题，正则抽取把井深、压力等数值放回字段；两步都需要保存原文与缺失提示。",
+          "trap": "生成内容仅为模板化摘要，不补写缺失事实；训练短句为人工合成。",
+          "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"独立测试混淆矩阵\"><title>独立测试混淆矩阵</title><rect x=\"180\" y=\"60\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"240\" y=\"96\">2</text><rect x=\"325\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"96\">0</text><rect x=\"470\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"96\">0</text><text x=\"5\" y=\"96\">正常钻进</text><rect x=\"180\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"161\">0</text><rect x=\"325\" y=\"125\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"385\" y=\"161\">2</text><rect x=\"470\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"161\">0</text><text x=\"5\" y=\"161\">气测异常</text><rect x=\"180\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"226\">0</text><rect x=\"325\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"226\">0</text><rect x=\"470\" y=\"190\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"530\" y=\"226\">2</text><text x=\"5\" y=\"226\">设备维护</text><text x=\"180\" y=\"40\">正常钻进</text><text x=\"325\" y=\"40\">气测异常</text><text x=\"470\" y=\"40\">设备维护</text></svg>"
+        },
+        {
+          "name": "比较基线与复核",
+          "do": "在相同测试对象或候选集上计算模型和基线；调整控件后导出逐条结果。",
+          "effect": "指标、主图、导出表均由同一次计算生成。",
+          "trap": "只有在独立现场数据验证后才能讨论实际适用性。",
+          "diagram": "<svg viewBox=\"0 0 760 180\" role=\"img\" aria-label=\"默认计算指标对照\"><text x=\"0\" y=\"30\" fill=\"#173b52\">留出准确率</text><rect x=\"255\" y=\"12\" width=\"390.0\" height=\"26\" fill=\"#216d89\"/><text x=\"655\" y=\"30\" fill=\"#536777\">100.00 %</text><text x=\"0\" y=\"82\" fill=\"#173b52\">多数类基线</text><rect x=\"255\" y=\"64\" width=\"130.0\" height=\"26\" fill=\"#bf703b\"/><text x=\"655\" y=\"82\" fill=\"#536777\">33.33 %</text><text x=\"0\" y=\"134\" fill=\"#173b52\">数值核查异常</text><rect x=\"255\" y=\"116\" width=\"0.0\" height=\"26\" fill=\"#71843d\"/><text x=\"655\" y=\"134\" fill=\"#536777\">0.00 项</text></svg>"
+        }
+      ],
+      "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 160\" role=\"img\" aria-label=\"录井报告自动生成的变量关系\"><rect x=\"20\" y=\"30\" width=\"210\" height=\"92\" fill=\"#e7eff3\"/><text x=\"35\" y=\"63\" font-size=\"16\" fill=\"#173b52\">录井短句</text><text x=\"35\" y=\"98\" font-size=\"14\" fill=\"#536777\">观测或决策输入</text><rect x=\"270\" y=\"30\" width=\"210\" height=\"92\" fill=\"#d7e6ed\"/><text x=\"285\" y=\"63\" font-size=\"16\" fill=\"#173b52\">字段数值</text><text x=\"285\" y=\"98\" font-size=\"14\" fill=\"#536777\">组合特征 / 约束</text><rect x=\"520\" y=\"30\" width=\"210\" height=\"92\" fill=\"#edf0e2\"/><text x=\"535\" y=\"63\" font-size=\"16\" fill=\"#173b52\">录井摘要草稿</text><text x=\"535\" y=\"98\" font-size=\"14\" fill=\"#536777\">预测后人工复核</text><path d=\"M235 76H260M485 76H510\" stroke=\"#536777\" stroke-width=\"2\"/><text x=\"20\" y=\"150\" fill=\"#536777\" font-size=\"14\">词频分类可整理工况主题</text></svg>"
+    },
+    "demo": {
+      "label": "案例演示",
+      "mode": "auto",
+      "html": "demo/index.html",
+      "height": 900,
+      "intro": "对可编辑录井记录作朴素贝叶斯主题分类和字段抽取，生成可复核摘要。"
+    }
+  },
+  "thumbnail": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"独立测试混淆矩阵\"><title>独立测试混淆矩阵</title><rect x=\"180\" y=\"60\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"240\" y=\"96\">2</text><rect x=\"325\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"96\">0</text><rect x=\"470\" y=\"60\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"96\">0</text><text x=\"5\" y=\"96\">正常钻进</text><rect x=\"180\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"161\">0</text><rect x=\"325\" y=\"125\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"385\" y=\"161\">2</text><rect x=\"470\" y=\"125\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"530\" y=\"161\">0</text><text x=\"5\" y=\"161\">气测异常</text><rect x=\"180\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"240\" y=\"226\">0</text><rect x=\"325\" y=\"190\" width=\"140\" height=\"60\" fill=\"#eef1f3\"/><text x=\"385\" y=\"226\">0</text><rect x=\"470\" y=\"190\" width=\"140\" height=\"60\" fill=\"#d5e7ed\"/><text x=\"530\" y=\"226\">2</text><text x=\"5\" y=\"226\">设备维护</text><text x=\"180\" y=\"40\">正常钻进</text><text x=\"325\" y=\"40\">气测异常</text><text x=\"470\" y=\"40\">设备维护</text></svg>"
+}
