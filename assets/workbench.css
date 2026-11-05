@@ -1,0 +1,6 @@
+/* 工程图例的显示规则。页面布局在 style.css，地图在 atlas.css。 */
+.well-diagram .flow-field{display:block}
+.well-callouts path{stroke:#DBC9A8}
+.flow-field{pointer-events:none}
+.flow-field path{fill:none;stroke:#DBC9A8;stroke-dasharray:2 12;stroke-linecap:round}
+.flow-hidden .flow-field,.archive-thumb .flow-field{display:none}
