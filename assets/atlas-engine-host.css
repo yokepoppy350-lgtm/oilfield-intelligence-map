@@ -57,3 +57,15 @@
 }
 @media(prefers-reduced-motion:reduce){.section-drawing .section-flow{animation:none}}
 
+
+/* Reserve space for the canvas tools and stage navigation. */
+@media(max-width:760px){body.map-workspace .atlas-page.stage[data-focus] .scene-viewport{height:390px;min-height:0}body.map-workspace .atlas-page.stage[data-focus] .stage-panel{height:auto;max-height:none;padding-top:24px}body.map-workspace .canvas-toolbar .map-menu{min-width:0}body.map-workspace .canvas-toolbar .map-menu>summary{padding:8px;font-size:13px}}
+
+body.map-workspace .atlas-page#map-page .section-drawing{inset:154px 24px 112px}
+.section-drawing .pump-beam{transform-box:fill-box;transform-origin:65% 65%;animation:pump-stroke 3.6s ease-in-out infinite alternate}
+@keyframes pump-stroke{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.scene-reveal{animation:field-reveal 2s ease both}
+@keyframes field-reveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.paused .pump-beam,.reduced .pump-beam{animation-play-state:paused}
+@media(max-width:760px){body.map-workspace .atlas-page#map-page .section-drawing{inset:172px 12px 110px}body.map-workspace .atlas-page#map-page.stage .section-drawing{inset:68px 12px 12px}}
+@media(prefers-reduced-motion:reduce){.section-drawing .pump-beam,.scene-reveal{animation:none}}

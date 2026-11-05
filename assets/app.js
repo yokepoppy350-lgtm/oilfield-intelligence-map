@@ -47,7 +47,7 @@
     document.body.classList.toggle('paused',!motion||document.hidden);
     document.body.classList.toggle('reduced',reduced);
     const b=mapDOM?.querySelector('#motion');
-    if(b){b.textContent=reduced?'系统静态模式':motion?'暂停动效':'播放动效';b.setAttribute('aria-pressed',String(!motion||reduced));b.disabled=reduced;}
+    if(b){b.textContent=reduced?'系统静态模式':motion?'暂停动画':'播放动画';b.setAttribute('aria-pressed',String(!motion||reduced));b.disabled=reduced;}
     const globalButton=document.querySelector('#motion-global');
     globalButton.textContent=motion&&!reduced?'动态：开':'动态：关';globalButton.setAttribute('aria-checked',String(motion&&!reduced));globalButton.disabled=reduced;
     globalButton.setAttribute('aria-label',reduced?'系统已设置减少动态效果':'动态效果');
@@ -106,15 +106,21 @@
     mapDOM.querySelector('#motion').onclick=toggleMotion;
     const layers=storage.get('field-section-layers',{geology:true,well:true});
     mapDOM.querySelectorAll('[data-section-layer]').forEach(button=>{const key=button.dataset.sectionLayer;const apply=()=>{button.setAttribute('aria-pressed',String(layers[key]!==false));mapDOM.classList.toggle(key+'-hidden',layers[key]===false);};button.onclick=()=>{layers[key]=layers[key]===false;storage.set('field-section-layers',layers);apply();};apply();});
-    let showFlow=storage.get('field-flow',false);const flowButton=mapDOM.querySelector('#toggle-flow');function setFlow(){mapDOM.classList.toggle('flow-hidden',!showFlow);flowButton.setAttribute('aria-pressed',String(showFlow));flowButton.textContent='流向示意：'+(showFlow?'开':'关');}flowButton.onclick=()=>{showFlow=!showFlow;storage.set('field-flow',showFlow);setFlow();};setFlow();
+    let showFlow=storage.get('field-flow',true);const flowButton=mapDOM.querySelector('#toggle-flow');function setFlow(){mapDOM.classList.toggle('flow-hidden',!showFlow);flowButton.setAttribute('aria-pressed',String(showFlow));flowButton.textContent='流向示意：'+(showFlow?'开':'关');}flowButton.onclick=()=>{showFlow=!showFlow;storage.set('field-flow',showFlow);setFlow();};setFlow();
     mapDOM.querySelector('#replay').onclick=()=>{mapDOM.querySelector('.map-menu').open=false;window.oilfieldEngine?.replaySplash();playIntro();};
-    mapDOM.querySelector('#reset-map').onclick=()=>{window.oilfieldEngine?.setFocusStage(mapStage || 'default');};
+    mapDOM.querySelector('#reset-map').onclick=()=>navigate('#/map');
+    mapDOM.querySelector('#zoom-out-map').onclick=()=>window.oilfieldEngine?.adjust('ArrowDown');
     mapDOM.querySelector('#zoom-map').onclick=()=>window.oilfieldEngine?.adjust('ArrowUp');
-    area.onpointerdown=e=>{if(e.button!==0||e.target.closest('a,button,input,select,summary'))return;finishIntro();drag={x:e.clientX,y:e.clientY,camera:{...camera},moved:false,pointer:e.pointerId};area.setPointerCapture(e.pointerId);area.classList.add('is-dragging');};
-    area.onpointermove=e=>{if(!drag||e.pointerId!==drag.pointer)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>2)drag.moved=true;if(window.oilfieldEngine?.panByPixels){window.oilfieldEngine.panByPixels(dx,dy);drag.x=e.clientX;drag.y=e.clientY;return;}camera={...drag.camera,x:Math.max(-1440*camera.scale+80,Math.min(availableWidth()-80,drag.camera.x+dx))};applyCamera(false);};
-    const endDrag=()=>{if(drag?.moved)remember();drag=null;area.classList.remove('is-dragging');};
+    let panFrame=0,pendingX=0,pendingY=0,suppressClick=false;
+    const flushPan=()=>{panFrame=0;if(pendingX||pendingY)window.oilfieldEngine?.panByPixels(pendingX,pendingY);pendingX=pendingY=0;};
+    area.onpointerdown=e=>{if(e.button!==0||e.target.closest('.canvas-toolbar'))return;finishIntro();drag={x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:false,pointer:e.pointerId};};
+    area.onpointermove=e=>{if(!drag||e.pointerId!==drag.pointer)return;if(!drag.moved&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)<5)return;drag.moved=true;area.setPointerCapture(e.pointerId);area.classList.add('is-dragging');pendingX+=e.clientX-drag.x;pendingY+=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;if(!panFrame)panFrame=requestAnimationFrame(flushPan);};
+    const endDrag=()=>{if(!drag)return;cancelAnimationFrame(panFrame);flushPan();if(drag.moved){suppressClick=true;setTimeout(()=>suppressClick=false,0);remember();}drag=null;area.classList.remove('is-dragging');};
     area.onpointerup=endDrag;area.onpointercancel=endDrag;area.onlostpointercapture=endDrag;
-    area.onkeydown=e=>{if(window.oilfieldEngine){if(e.target===area&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();if(window.oilfieldEngine.adjust){window.oilfieldEngine.adjust(e.key);return;}const c=window.oilfieldEngine.camera;if(e.key==='ArrowLeft')c.targetYaw-=.1;if(e.key==='ArrowRight')c.targetYaw+=.1;if(e.key==='ArrowUp')c.targetZoom=Math.min(3.2,c.targetZoom+.15);if(e.key==='ArrowDown')c.targetZoom=Math.max(.25,c.targetZoom-.15);}return;}if(e.target!==area||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();finishIntro();if(e.key==='ArrowLeft'||e.key==='ArrowRight')camera.x+=e.key==='ArrowLeft'?64:-64;else{const prev=camera.scale;camera.scale=Math.max(.25,Math.min(3.2,camera.scale+(e.key==='ArrowUp'?.15:-.15)));camera.x=availableWidth()/2-(availableWidth()/2-camera.x)*camera.scale/prev;camera.y=area.clientHeight/2-(area.clientHeight/2-camera.y)*camera.scale/prev;camera.zoomed=true;}applyCamera();remember();};
+    area.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopImmediatePropagation();}},true);
+    area.ondblclick=e=>{if(!e.target.closest('a,button,summary,.canvas-toolbar')){e.preventDefault();navigate('#/map');}};
+    area.addEventListener('wheel',e=>{if(e.target.closest('.canvas-toolbar'))return;e.preventDefault();finishIntro();window.oilfieldEngine?.zoomAt(e.deltaY,e.clientX,e.clientY);},{passive:false});
+    area.onkeydown=e=>{if(e.key==='Escape'){navigate('#/map');return;}if(window.oilfieldEngine){if(e.target===area&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();if(window.oilfieldEngine.adjust){window.oilfieldEngine.adjust(e.key);return;}const c=window.oilfieldEngine.camera;if(e.key==='ArrowLeft')c.targetYaw-=.1;if(e.key==='ArrowRight')c.targetYaw+=.1;if(e.key==='ArrowUp')c.targetZoom=Math.min(3.2,c.targetZoom+.15);if(e.key==='ArrowDown')c.targetZoom=Math.max(.25,c.targetZoom-.15);}return;}if(e.target!==area||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();finishIntro();if(e.key==='ArrowLeft'||e.key==='ArrowRight')camera.x+=e.key==='ArrowLeft'?64:-64;else{const prev=camera.scale;camera.scale=Math.max(.25,Math.min(3.2,camera.scale+(e.key==='ArrowUp'?.15:-.15)));camera.x=availableWidth()/2-(availableWidth()/2-camera.x)*camera.scale/prev;camera.y=area.clientHeight/2-(area.clientHeight/2-camera.y)*camera.scale/prev;camera.zoomed=true;}applyCamera();remember();};
     resizeObserver=new ResizeObserver(()=>{const size=area.clientWidth+':'+area.clientHeight;if(mapDOM.isConnected&&size!==area.dataset.size){area.dataset.size=size;camera=defaultCamera();applyCamera(false);}});resizeObserver.observe(area);
   }
   function updateMap(stage,saved){
@@ -132,7 +138,7 @@
     loadStatus();syncMotion();
     if(saved?.camera)camera={...saved.camera};else{camera.zoomed=!!stage;camera=defaultCamera();}
     if(wasAttached&&animated()&&!saved){const target={...camera};camera=previous;applyCamera(false);void mapDOM.offsetWidth;camera=target;requestAnimationFrame(()=>applyCamera(true));}else applyCamera(false);
-    if(stage&&innerWidth<=760){const n=mapDOM.querySelector('.stage-rail .active');if(n)mapDOM.querySelector('.stage-rail').scrollLeft=n.offsetLeft-mapDOM.querySelector('.stage-rail').offsetLeft-100;}
+    if(stage&&innerWidth<=760){const n=mapDOM.querySelector('.map-stage-index .active');if(n)mapDOM.querySelector('.map-stage-index').scrollLeft=n.offsetLeft-mapDOM.querySelector('.map-stage-index').offsetLeft-100;}
     window.FieldStudy?.mount(stage);
     if(stage&&wasAttached&&animated()&&panel.animate)panel.animate([{opacity:.2,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'ease-out'});
     if(!stage&&!storage.get('field-intro-seen',false))playIntro();

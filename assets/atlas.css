@@ -92,3 +92,34 @@
   .atlas-page .map-node[data-stage=refining] .node-label {left:auto;right:2px}
   #load-status {top:108px;left:20px;right:20px}
 }
+
+/* Direct map navigation: one stage rail, one compact canvas toolbar. */
+body.map-workspace .canvas-toolbar{position:absolute;top:100px;right:24px;z-index:6;display:flex;align-items:center;gap:2px;padding:4px;background:#fff;border:1px solid #d8e1e6;border-radius:6px;box-shadow:0 3px 12px #173b520a}
+body.map-workspace .canvas-toolbar button,body.map-workspace .canvas-toolbar summary{display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:42px;min-height:42px;border:0;background:transparent;color:#173b52;padding:8px 12px;font:14px var(--sans);cursor:pointer;white-space:nowrap}
+body.map-workspace .canvas-toolbar button:hover,body.map-workspace .canvas-toolbar summary:hover{background:#eaf0f4;border-radius:4px}
+body.map-workspace .atlas-page#map-page .canvas-toolbar .map-menu{position:relative;inset:auto;padding:0;background:none}
+body.map-workspace .canvas-toolbar .menu-content{top:52px;bottom:auto;left:auto;right:0;width:200px;padding:8px;max-height:none}
+body.map-workspace .canvas-toolbar .section-layers{display:grid}
+body.map-workspace .canvas-toolbar .section-layers [aria-pressed=false]{color:#8997a0}
+body.map-workspace .atlas-page .map-node{left:0;top:0;width:48px;height:48px;will-change:transform;transition:none!important}
+body.map-workspace .atlas-page .map-node::before{width:13px;height:13px;box-sizing:border-box;background:#173b52;border:3px solid #fff;box-shadow:0 0 0 1px #173b5266}
+body.map-workspace .atlas-page .map-node:is(:hover,:focus-visible,.selected)::before{width:18px;height:18px;background:#996b32;border-color:#fff}
+body.map-workspace .atlas-page .map-node .node-label{display:flex;left:36px;top:11px;padding:3px 7px;background:#f4f6f8ed;border-radius:3px}
+body.map-workspace .atlas-page .map-node .node-name{font-size:14px}
+body.map-workspace .atlas-page .map-node[data-stage=cementing] .node-label{left:auto;right:36px}
+body.map-workspace .atlas-page .close-stage{position:absolute;top:0;right:0;width:44px;height:44px;border:0;background:transparent;font-size:28px;color:#536777;cursor:pointer}
+body.map-workspace .atlas-page .stage-panel{padding-top:42px}
+body.map-workspace .atlas-page .map-stage-index{bottom:16px;left:24px;right:24px;display:flex!important;overflow-x:auto;scrollbar-width:thin;padding:4px 0;background:#f4f6f8;gap:4px}
+body.map-workspace .map-stage-index a{flex:1 0 60px;min-height:60px;box-sizing:border-box;border-radius:4px}
+body.map-workspace .map-stage-index a[aria-current]{background:#173b52;color:#fff}
+body.map-workspace .map-stage-index a[aria-current] span{color:#c6d9e5}
+@media(max-width:760px){
+ body.map-workspace .canvas-toolbar{top:112px;right:12px;left:12px;justify-content:center}
+ body.map-workspace .canvas-toolbar button,body.map-workspace .canvas-toolbar summary{padding:8px;min-width:40px;font-size:13px}
+ body.map-workspace .atlas-page.stage .map-stage-index{position:relative;bottom:auto;left:auto;right:auto;order:0;margin:0;padding:8px 12px}
+ body.map-workspace .atlas-page.stage .canvas-toolbar{top:12px}
+ body.map-workspace .atlas-page .map-node .node-label{display:none}
+ body.map-workspace .atlas-page .map-node:is(.selected,:focus-visible) .node-label{display:flex}
+ body.map-workspace .atlas-page .stage-panel{padding-top:24px}
+ body.map-workspace .atlas-page .close-stage{top:8px;right:12px}
+}

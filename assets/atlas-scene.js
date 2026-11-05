@@ -138,7 +138,7 @@
           <path d="M838 388V395L920 402V395Z" fill="#344939"/>
           <path d="M881 387L899 332L913 388" fill="#7D9580" stroke="#B9C7A7" stroke-width="4"/>
           <path d="M891 363L908 364" stroke="#C2CCAD" stroke-width="3"/>
-          <path d="M854 322L931 333L933 342L852 332Z" fill="#CFD2AF"/>
+          <path class="pump-beam" d="M854 322L931 333L933 342L852 332Z" fill="#CFD2AF"/>
           <path d="M854 322C841 323 840 342 845 354L853 355L861 333Z" fill="#AFAF83"/>
           <path d="M849 353V389" stroke="#D6CFA4" stroke-width="2"/>
           <path d="M844 386H858V394H844Z" fill="#B6C5A4"/>
@@ -161,7 +161,7 @@
         <path d="M544 557V626M556 557V626" stroke="#D7BA82" stroke-width="3"/>
         ${channels}
       </g>
-      <g class="flow-field" fill="none" stroke="#EEE2BC" stroke-width="1.7" marker-end="url(#field-flow-arrow)">
+      <g class="flow-field section-flow" stroke-dasharray="6 7" fill="none" stroke="#EEE2BC" stroke-width="1.7" marker-end="url(#field-flow-arrow)">
         <path d="M400 584Q468 565 534 581"/>
         <path d="M700 600Q635 573 568 588"/>
         <path d="M549 548V460"/>
@@ -181,27 +181,35 @@
     if(window.oilfieldEngine)return window.oilfieldEngine;
     const host=document.createElement('div');host.className='section-drawing';container.append(host);
     let resizeFrame, cameraFrame;
+    const nodes=[...container.querySelectorAll('.map-node')];
     const canMove=()=>!document.body.classList.contains('paused')&&!document.body.classList.contains('reduced')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.hidden;
     const engine={
       params:{density:20,penetration:400,phasing:120},camera:{targetYaw:0,targetPitch:0,targetZoom:1},focus:'default',offset:0,magnification:1,_box:null,_key:'',_target:'',_manual:null,
       setFocusStage(stage){this.focus=STAGES[stage]||stage==='perforation'?stage:'default';container.dataset.activeStage=this.focus;this.offset=0;this.magnification=1;this._manual=null;this.draw(true);},
       adjust(key){if(this._manual){const b=this._manual;if(key==='ArrowLeft')b[0]-=40;if(key==='ArrowRight')b[0]+=40;if(key==='ArrowUp'||key==='ArrowDown'){const f=key==='ArrowUp'?.9:1.1;if(b[2]*f>=250&&b[2]*f<=1800){b[0]+=b[2]*(1-f)/2;b[1]+=b[3]*(1-f)/2;b[2]*=f;b[3]*=f;}}this.draw(true);return;}if(key==='ArrowLeft')this.offset=Math.max(-500,this.offset-40);if(key==='ArrowRight')this.offset=Math.min(500,this.offset+40);if(key==='ArrowUp')this.magnification=Math.min(2,this.magnification+.1);if(key==='ArrowDown')this.magnification=Math.max(.7,this.magnification-.1);this.draw(true);},
       panByPixels(dx,dy){if(!this._box)return;cancelAnimationFrame(cameraFrame);cameraFrame=null;const scale=Math.min(host.clientWidth/this._box[2],host.clientHeight/this._box[3]);if(!scale)return;this._box=[Math.max(-180,Math.min(1200,this._box[0]-dx/scale)),Math.max(-120,Math.min(700,this._box[1]-dy/scale)),this._box[2],this._box[3]];this._manual=this._box.slice();this._target=this._box.join(' ');this.place(this._box);},
+      zoomAt(delta,clientX,clientY){
+        if(!this._box)return;cancelAnimationFrame(cameraFrame);cameraFrame=null;
+        const rect=host.getBoundingClientRect(),b=this._box,scale=Math.min(rect.width/b[2],rect.height/b[3]);
+        const f=Math.max(.85,Math.min(1.18,Math.exp(delta*.0015))),width=Math.max(320,Math.min(1900,b[2]*f)),ratio=width/b[2];
+        const px=(clientX-rect.left-(rect.width-b[2]*scale)/2)/scale,py=(clientY-rect.top-(rect.height-b[3]*scale)/2)/scale;
+        this._manual=[b[0]+px*(1-ratio),b[1]+py*(1-ratio),width,b[3]*ratio];this.draw(false);
+      },
       setParams(density,penetration,phasing){this.params={density,penetration,phasing};this.draw(true);},
-      replaySplash(){this.setFocusStage(this.focus);},
+      replaySplash(){this.setFocusStage(this.focus);host.classList.remove('scene-reveal');void host.offsetWidth;host.classList.add('scene-reveal');setTimeout(()=>host.classList.remove('scene-reveal'),2200);},
       place(box){
         const svg=host.querySelector('svg');if(!svg)return;
         svg.setAttribute('viewBox',box.join(' '));
         const scale=Math.min(host.clientWidth/box[2],host.clientHeight/box[3]);
         const dx=host.offsetLeft+(host.clientWidth-box[2]*scale)/2,dy=host.offsetTop+(host.clientHeight-box[3]*scale)/2;
-        const mobile=window.innerWidth<=760,focus=this.focus==='perforation';
-        container.querySelectorAll('.map-node').forEach(node=>{const a=STAGES[node.dataset.stage],x=dx+(a.x-box[0])*scale,y=dy+(a.y-box[1])*scale;
-          node.hidden=focus||(mobile&&node.dataset.stage!==this.focus&&!['drilling','production','perforation','refining'].includes(node.dataset.stage))||x<22||x>container.clientWidth-22||y<22||y>container.clientHeight-22;
-          node.style.left=x+'px';node.style.top=y+'px';
+        const mobile=window.innerWidth<=760,focus=false;
+        nodes.forEach(node=>{const a=STAGES[node.dataset.stage],x=dx+(a.x-box[0])*scale,y=dy+(a.y-box[1])*scale;
+          node.hidden=x<22||x>container.clientWidth-22||y<22||y>container.clientHeight-22;
+          node.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
         });
       },
       draw(animate=false){
-        const focus=this.focus==='perforation',kind=focus?'section':'field',priorKind=this._kind;
+        const focus=false,kind='field',priorKind=this._kind;
         const key=kind+JSON.stringify(this.params);
         if(key!==this._key){
           host.innerHTML=focus?window.SectionView(this.params):atlas.renderSvg(this.params);
