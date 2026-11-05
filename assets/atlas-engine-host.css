@@ -69,3 +69,7 @@ body.map-workspace .atlas-page#map-page .section-drawing{inset:154px 24px 112px}
 .paused .pump-beam,.reduced .pump-beam{animation-play-state:paused}
 @media(max-width:760px){body.map-workspace .atlas-page#map-page .section-drawing{inset:172px 12px 110px}body.map-workspace .atlas-page#map-page.stage .section-drawing{inset:68px 12px 12px}}
 @media(prefers-reduced-motion:reduce){.section-drawing .pump-beam,.scene-reveal{animation:none}}
+
+/* 只在画布边缘裁切；SVG局部视窗外的设备与节点保持一致。 */
+body.map-workspace .atlas-page#map-page .scene-viewport{overflow:hidden}
+body.map-workspace .atlas-page#map-page .section-drawing>svg{overflow:visible}

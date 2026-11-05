@@ -101,3 +101,15 @@ dialog::backdrop{background:#182D3366}.dialog-head{display:flex;justify-content:
 @media(max-width:560px){.import-choices{grid-template-columns:1fr}#import-dialog{padding:20px}#import-dialog .drop{padding:16px}.import-choices label{font-size:16px}}
 
 .imported-content figure{margin:24px 0;overflow:auto}.imported-content section{max-width:100%;overflow-x:auto}.imported-content section>svg{min-width:500px}
+
+/* 文字按用途分色：正文石墨灰、标题深蓝、链接墨绿、类别暖褐。 */
+body .page{color:#33434D}
+body .page h1,body .page h3{color:#173B52}
+body .page h2{color:#24665F}
+body .page :is(.case-title,.method-scene-list strong,.research-index nav a){color:#17675F}
+body .page :is(.case-context,.method-scene-list> a>span,.detail-meta){color:#885D2B}
+body .page :is(.method-question,.section-lead,.research-page-head p){color:#536777}
+body .page :is(.method-limit,.method-scene-list small,.archive-info small){color:#66727C}
+body .page :is(.library-row,.method-scene-list a):is(:hover,:focus-visible) :is(.case-title,strong){color:#0D514A;text-decoration:underline;text-underline-offset:4px}
+body .page .method-nav a[aria-current]{color:#17675F;border-color:#17675F}
+body .page .method-chain li::marker{color:#885D2B}
